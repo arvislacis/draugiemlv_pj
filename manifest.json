@@ -1,0 +1,17 @@
+{
+	"manifest_version": 2,
+
+	"name": "Draugiem.lv profila jaunumi",
+	"description": "Paplašinājums paziņojumu veidā attēlo jaunumus lietotāja Draugiem.lv profilā.",
+	"homepage_url": "http://www.draugiem.lv/arvislacis/",
+	"version": "0.1.2",
+
+	"minimum_chrome_version": "23",
+
+	"permissions": ["http://www.draugiem.lv/", "alarms", "notifications", "tabs"],
+
+	"background": {
+		"scripts": ["js/jquery.min.js", "js/skripts.js"],
+		"persistent": false
+	}
+}
