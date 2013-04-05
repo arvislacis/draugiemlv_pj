@@ -1,19 +1,25 @@
 // (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
+// Versija 0.1.7 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+
+/* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
+/* global chrome:false, webkitNotifications:false */
+
+"use strict";
 
 $(document).ready(function () {
 	function zina (nosaukums, teksts) {
-		var zina = webkitNotifications.createNotification("", nosaukums, teksts);
+		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
 
-		zina.show();
+		pazinojums.show();
 
 		setTimeout(function () {
-			zina.cancel();
+			pazinojums.cancel();
 		}, 5000);
 	}
 
 	function atjaunot () {
 		$.get("http://www.draugiem.lv", function (data) {
-			var dati = [
+			var teksts = " | ", dati = [
 				{
 					kategorija: "Vēstules",
 					vertiba: $(data).find("#menuMessages .badge").text()
@@ -59,11 +65,9 @@ $(document).ready(function () {
 					vertiba: $(data).find("#menuFriends .badge").text()
 				}
 			];
-				
-			var teksts = " | ";
 
 			$.each(dati, function (i) {
-				if (dati[i].vertiba != 0) {
+				if (dati[i].vertiba !== "") {
 					teksts = teksts + dati[i].kategorija + ": " + dati[i].vertiba + " | ";
 				}
 			});
@@ -78,29 +82,53 @@ $(document).ready(function () {
 
 	chrome.omnibox.onInputEntered.addListener(function (ievade) {
 		switch (ievade) {
-			case "die": case "dienasgrāmatas": case "blogi": case "emuāri": case "dienasgramatas": case "emuari":
-				cilne("blogs");
-				break;
-			case "dra": case "draugi": case "online": case "tiešsaistē":
-				cilne("friends");
-				break;
-			case "gal": case "galerijas": case "galerija":
-				cilne("gallery");
-				break;
-			case "gru": case "grupas": case "grupa":
-				cilne("groups");
-				break;
-			case "lap": case "lapas": case "lapa":
-				cilne("lapas");
-				break;
-			case "sta": case "statistika": case "apmeklētāji": case "skatījumi": case "apmeklejumi": case "skatijumi":
-				cilne("visitors");
-				break;
-			case "ves": case "vēstules": case "vēstule": case "vestules": case "vestule":
-				cilne("messages");
-				break;
-			default:
-				cilne("");
+		case "die":
+		case "dienasgrāmatas":
+		case "blogi":
+		case "emuāri":
+		case "dienasgramatas":
+		case "emuari":
+			cilne("blogs");
+			break;
+		case "dra":
+		case "draugi":
+		case "online":
+		case "tiešsaistē":
+			cilne("friends");
+			break;
+		case "gal":
+		case "galerijas":
+		case "galerija":
+			cilne("gallery");
+			break;
+		case "gru":
+		case "grupas":
+		case "grupa":
+			cilne("groups");
+			break;
+		case "lap":
+		case "lapas":
+		case "lapa":
+			cilne("lapas");
+			break;
+		case "sta":
+		case "statistika":
+		case "apmeklētāji":
+		case "skatījumi":
+		case "apmeklejumi":
+		case "skatijumi":
+			cilne("visitors");
+			break;
+		case "vēs":
+		case "ves":
+		case "vēstules":
+		case "vēstule":
+		case "vestules":
+		case "vestule":
+			cilne("messages");
+			break;
+		default:
+			cilne("");
 		}
 	});
 
@@ -110,5 +138,5 @@ $(document).ready(function () {
 		}
 	});
 
-	chrome.alarms.create("dr_atjaunot", {periodInMinutes : 2});
+	chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
 });
