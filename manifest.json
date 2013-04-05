@@ -4,22 +4,25 @@
 	"name": "Draugiem.lv profila jaunumi",
 	"description": "Paplašinājums paziņojumu veidā attēlo jaunumus lietotāja Draugiem.lv profilā.",
 	"homepage_url": "http://www.draugiem.lv/arvislacis/",
-	"version": "0.1.7",
+	"version": "0.1.8",
 
 	"minimum_chrome_version": "23",
-
-	"omnibox": {
-		"keyword": "dr"
-	},
 
 	"permissions": [
 		"http://www.draugiem.lv/",
 		"alarms",
-		"notifications"
+		"notifications",
+		"storage"
 	],
 
 	"background": {
 		"scripts": ["js/jquery.min.js", "js/skripts.js"],
 		"persistent": false
-	}
+	},
+
+	"omnibox": {
+		"keyword": "dr"
+	},
+
+	"options_page": "html/iestatijumi.html"
 }

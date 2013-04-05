@@ -7,19 +7,21 @@
 "use strict";
 
 $(document).ready(function () {
-	function zina (nosaukums, teksts) {
+	function zina (nosaukums, teksts, taimeris) {
 		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
 
 		pazinojums.show();
 
-		setTimeout(function () {
-			pazinojums.cancel();
-		}, 5000);
+		if (taimeris === true) {
+			setTimeout(function () {
+				pazinojums.cancel();
+			}, 5000);
+		}
 	}
 
 	function atjaunot () {
 		$.get("http://www.draugiem.lv", function (data) {
-			var teksts = " | ", dati = [
+			var vards = $(data).find("#my-name a").text(), teksts = " | ", dati = [
 				{
 					kategorija: "Vēstules",
 					vertiba: $(data).find("#menuMessages .badge").text()
@@ -72,7 +74,11 @@ $(document).ready(function () {
 				}
 			});
 
-			zina($(data).find("#my-name a").text() + " (jaunumi Draugiem.lv profilā)", teksts);
+			if (vards !== "") {
+				zina(vards, teksts, true);
+			} else {
+				zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Jūsu Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar savu Draugiem.lv profilu.", false)
+			}
 		});
 	}
 
@@ -130,6 +136,11 @@ $(document).ready(function () {
 		default:
 			cilne("");
 		}
+	});
+
+	$("#iestatijumi").css({"text-align" : "center"});
+	$("#saglabat").onclick(function () {
+		
 	});
 
 	chrome.alarms.onAlarm.addListener(function (alarm) {
