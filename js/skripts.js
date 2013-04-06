@@ -1,5 +1,5 @@
 // (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
-// Versija 0.1.7 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// Versija 0.1.9 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false, webkitNotifications:false */
@@ -7,6 +7,8 @@
 "use strict";
 
 $(document).ready(function () {
+	var laiks = localStorage.dr_biezums;
+
 	function zina (nosaukums, teksts, taimeris) {
 		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
 
@@ -21,63 +23,30 @@ $(document).ready(function () {
 
 	function atjaunot () {
 		$.get("http://www.draugiem.lv", function (data) {
-			var vards = $(data).find("#my-name a").text(), teksts = " | ", dati = [
-				{
-					kategorija: "Vēstules",
-					vertiba: $(data).find("#menuMessages .badge").text()
-				},
-
-				{
-					kategorija: "Profila jaunumi",
-					vertiba: $(data).find("#myProfileNews .badge").text()
-				},
-
-				{
-					kategorija: "Statistika",
-					vertiba: $(data).find("#menuVisitors .badge").text()
-				},
-
-				{
-					kategorija: "Galerijas",
-					vertiba: $(data).find("#menuGallery .badge").text()
-				},
-
-				{
-					kategorija: "Grupas",
-					vertiba: $(data).find("#menuGroups .badge").text()
-				},
-
-				{
-					kategorija: "Dienasgrāmatas",
-					vertiba: $(data).find("#menuBlogs .badge").text()
-				},
-				
-				{
-					kategorija: "Citi",
-					vertiba : $(data).find("#menuCiti .badge").text()
-				},
-
-				{
-					kategorija: "Kalendārs",
-					vertiba : $(data).find("#calendarBox .badge").text()
-				},
-
-				{
-					kategorija: "Draugi online",
-					vertiba: $(data).find("#menuFriends .badge").text()
-				}
-			];
+			var vards = $(data).find("#my-name a").text(),
+				teksts = " | ",
+				dati = [
+					["Vēstules", $(data).find("#menuMessages .badge").text()],
+					["Profila jaunumi", $(data).find("#myProfileNews .badge").text()],
+					["Statistika", $(data).find("#menuVisitors .badge").text()],
+					["Galerijas", $(data).find("#menuGallery .badge").text()],
+					["Grupas", $(data).find("#menuGroups .badge").text()],
+					["Dienasgrāmatas", $(data).find("#menuBlogs .badge").text()],
+					["Citi", $(data).find("#menuCiti .badge").text()],
+					["Kalendārs", $(data).find("#calendarBox .badge").text()],
+					["Draugi online", $(data).find("#menuFriends .badge").text()]
+				];
 
 			$.each(dati, function (i) {
-				if (dati[i].vertiba !== "") {
-					teksts = teksts + dati[i].kategorija + ": " + dati[i].vertiba + " | ";
+				if (dati[i][1] !== "") {
+					teksts = teksts + dati[i][0] + ": " + dati[i][1] + " | ";
 				}
 			});
 
 			if (vards !== "") {
 				zina(vards, teksts, true);
 			} else {
-				zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Jūsu Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar savu Draugiem.lv profilu.", false)
+				zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Jūsu Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar savu Draugiem.lv profilu.", false);
 			}
 		});
 	}
@@ -138,16 +107,15 @@ $(document).ready(function () {
 		}
 	});
 
-	$("#iestatijumi").css({"text-align" : "center"});
-	$("#saglabat").onclick(function () {
-		
-	});
-
 	chrome.alarms.onAlarm.addListener(function (alarm) {
 		if (alarm.name === "dr_atjaunot") {
 			atjaunot();
 		}
 	});
 
-	chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
+	if (localStorage.dr_indekss !== undefined) { 
+		chrome.alarms.create("dr_atjaunot", {periodInMinutes: laiks});
+	} else {
+		chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
+	}
 });
