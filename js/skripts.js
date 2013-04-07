@@ -1,5 +1,5 @@
 // (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
-// Versija 0.1.9 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// Versija 0.2.0 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false, webkitNotifications:false */
@@ -7,8 +7,6 @@
 "use strict";
 
 $(document).ready(function () {
-	var laiks = localStorage.dr_biezums;
-
 	function zina (nosaukums, teksts, taimeris) {
 		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
 
@@ -113,9 +111,11 @@ $(document).ready(function () {
 		}
 	});
 
-	if (localStorage.dr_indekss !== undefined) { 
-		chrome.alarms.create("dr_atjaunot", {periodInMinutes: laiks});
-	} else {
-		chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
-	}
+	chrome.storage.local.get (null, function (iest) {
+		if (iest.dr_biezums !== undefined) {
+			chrome.alarms.create("dr_atjaunot", {periodInMinutes: iest.dr_biezums});
+		} else {
+			chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
+		}
+	});
 });
