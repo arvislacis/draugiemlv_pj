@@ -1,5 +1,6 @@
-// (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
-// Versija 0.2.0 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// (CC BY-SA) 2013 Arvis Lācis
+// arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
+// Versija 0.2.1 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false, webkitNotifications:false */
@@ -19,7 +20,7 @@ $(document).ready(function () {
 		}
 	}
 
-	function atjaunot () {
+	function atjaunot (lietotajs) {
 		$.get("http://www.draugiem.lv", function (data) {
 			var vards = $(data).find("#my-name a").text(),
 				teksts = " | ",
@@ -41,10 +42,12 @@ $(document).ready(function () {
 				}
 			});
 
-			if (vards !== "") {
-				zina(vards, teksts, true);
-			} else {
-				zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Jūsu Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar savu Draugiem.lv profilu.", false);
+			if ((vards === lietotajs) || (lietotajs === "")) {
+				if (vards !== "") {
+					zina(vards, teksts, true);
+				} else {
+					zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Jūsu Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar savu Draugiem.lv profilu.", false);
+				}
 			}
 		});
 	}
@@ -107,12 +110,18 @@ $(document).ready(function () {
 
 	chrome.alarms.onAlarm.addListener(function (alarm) {
 		if (alarm.name === "dr_atjaunot") {
-			atjaunot();
+			chrome.storage.local.get (null, function (iest) {
+				if (iest.dr_iestatijumi === true) {
+					atjaunot(iest.dr_lietotajs);
+				} else {
+					atjaunot("");
+				}
+			});
 		}
 	});
 
 	chrome.storage.local.get (null, function (iest) {
-		if (iest.dr_biezums !== undefined) {
+		if (iest.dr_iestatijumi === true) {
 			chrome.alarms.create("dr_atjaunot", {periodInMinutes: iest.dr_biezums});
 		} else {
 			chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
