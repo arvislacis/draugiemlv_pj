@@ -1,6 +1,6 @@
 // (CC BY-SA) 2013 Arvis Lācis
 // arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
-// Versija 0.2.1 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// Versija 0.2.2 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false, webkitNotifications:false */
@@ -51,62 +51,6 @@ $(document).ready(function () {
 			}
 		});
 	}
-
-	function cilne (adrese) {
-		chrome.tabs.create({url: "http://www.draugiem.lv/" + adrese + "/"});
-	}
-
-	chrome.omnibox.onInputEntered.addListener(function (ievade) {
-		switch (ievade) {
-		case "die":
-		case "dienasgrāmatas":
-		case "blogi":
-		case "emuāri":
-		case "dienasgramatas":
-		case "emuari":
-			cilne("blogs");
-			break;
-		case "dra":
-		case "draugi":
-		case "online":
-		case "tiešsaistē":
-			cilne("friends");
-			break;
-		case "gal":
-		case "galerijas":
-		case "galerija":
-			cilne("gallery");
-			break;
-		case "gru":
-		case "grupas":
-		case "grupa":
-			cilne("groups");
-			break;
-		case "lap":
-		case "lapas":
-		case "lapa":
-			cilne("lapas");
-			break;
-		case "sta":
-		case "statistika":
-		case "apmeklētāji":
-		case "skatījumi":
-		case "apmeklejumi":
-		case "skatijumi":
-			cilne("visitors");
-			break;
-		case "vēs":
-		case "ves":
-		case "vēstules":
-		case "vēstule":
-		case "vestules":
-		case "vestule":
-			cilne("messages");
-			break;
-		default:
-			cilne("");
-		}
-	});
 
 	chrome.alarms.onAlarm.addListener(function (alarm) {
 		if (alarm.name === "dr_atjaunot") {

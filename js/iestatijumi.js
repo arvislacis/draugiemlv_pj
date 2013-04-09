@@ -1,6 +1,6 @@
 // (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
 // arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
-// Versija 0.2.1 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// Versija 0.2.2 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false */
@@ -13,6 +13,16 @@ $(document).ready(function () {
 	chrome.storage.local.get (null, function (iest) {
 		if (iest.dr_iestatijumi === true) {
 			$("#lietotajs").val(iest.dr_lietotajs);
+
+			$("#vestules").prop("checked", iest.dr_vestules);
+			$("#jaunumi").prop("checked", iest.dr_jaunumi);
+			$("#statistika").prop("checked", iest.dr_statistika);
+			$("#galerijas").prop("checked", iest.dr_galerijas);
+			$("#dienasgramatas").prop("checked", iest.dr_dienasgramatas);
+			$("#citi").prop("checked", iest.dr_citi);
+			$("#kalendars").prop("checked", iest.dr_kalendars);
+			$("#online").prop("checked", iest.dr_online);
+
 			$("#intervals").val(iest.dr_indekss);
 		}
 
@@ -30,8 +40,18 @@ $(document).ready(function () {
 	$("#saglabat").click(function () {
 		chrome.storage.local.set ({
 			dr_iestatijumi: true,
-			dr_indekss: $("#intervals").val(),
 			dr_lietotajs: $("#lietotajs").val(),
+
+			dr_vestules: $("#vestules").prop("checked"),
+			dr_jaunumi: $("#jaunumi").prop("checked"),
+			dr_statistika: $("#statistika").prop("checked"),
+			dr_galerijas: $("#galerijas").prop("checked"),
+			dr_dienasgramatas: $("#dienasgramatas").prop("checked"),
+			dr_citi: $("#citi").prop("checked"),
+			dr_kalendars: $("#kalendars").prop("checked"),
+			dr_online: $("#online").prop("checked"),
+
+			dr_indekss: $("#intervals").val(),
 			dr_biezums: laiks[$("#intervals").val()]
 		});
 

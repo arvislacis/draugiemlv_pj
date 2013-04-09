@@ -9,10 +9,28 @@
 <div id="iestatijumi">
 	<h2>Draugiem.lv profila jaunumi - Iestatījumi</h2>
 	<hr>
-	Rādīt paziņojumus tikai šādam Draugiem.lv lietotājam: <input type="text" size="15" title="Ievadītajam tekstam jāsakrīt ar to, kas attēlots virs Draugiem.lv profila bildes." id="lietotajs">
+	Paziņojumus rādīt tikai šādam Draugiem.lv lietotājam: <input type="text" size="15" title="Ievadītajam tekstam jāsakrīt ar to, kas attēlots virs Draugiem.lv profila bildes." id="lietotajs">
+	<hr>
+	Paziņojumos iekļaut šādas sadaļas:
 	<br>
-	Datu atjaunošanas biežums: <input type="range" min="0" max="6" step="1" val="1" id="intervals"> <span id="intervals_txt"></span>
-	<br><br>
+	<label><input type="checkbox" id="vestules" checked>Vēstules</label>
+	<br>
+	<label><input type="checkbox" id="jaunumi" checked>Profila jaunumi</label>
+	<br>
+	<label><input type="checkbox" id="statistika" checked>Statistika</label>
+	<br>
+	<label><input type="checkbox" id="galerijas" checked>Galerijas</label>
+	<br>
+	<label><input type="checkbox" id="dienasgramatas" checked>Dienasgrāmatas</label>
+	<br>
+	<label><input type="checkbox" id="citi" checked>Citi</label>
+	<br>
+	<label><input type="checkbox" id="kalendars" checked>Kalendārs</label>
+	<br>
+	<label><input type="checkbox" id="online" checked>Draugi online</label>
+	<hr>
+	Paziņojumu rādīšanas biežums: <input type="range" min="0" max="6" step="1" val="1" id="intervals"> <span id="intervals_txt"></span>
+	<hr>
 	<input type="button" value="Saglabāt iestatījumus" id="saglabat">
 	<span id="statuss"></span>
 	<hr>
