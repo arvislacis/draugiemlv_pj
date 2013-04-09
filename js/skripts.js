@@ -1,6 +1,6 @@
 // (CC BY-SA) 2013 Arvis Lācis
 // arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
-// Versija 0.2.2 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// Versija 0.2.3 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false, webkitNotifications:false */
@@ -20,29 +20,29 @@ $(document).ready(function () {
 		}
 	}
 
-	function atjaunot (lietotajs) {
+	function atjaunot (lietotajs, vestules, jaunumi, statistika, galerijas, grupas, dienasgramatas, citi, kalendars, online) {
 		$.get("http://www.draugiem.lv", function (data) {
 			var vards = $(data).find("#my-name a").text(),
 				teksts = " | ",
 				dati = [
-					["Vēstules", $(data).find("#menuMessages .badge").text()],
-					["Profila jaunumi", $(data).find("#myProfileNews .badge").text()],
-					["Statistika", $(data).find("#menuVisitors .badge").text()],
-					["Galerijas", $(data).find("#menuGallery .badge").text()],
-					["Grupas", $(data).find("#menuGroups .badge").text()],
-					["Dienasgrāmatas", $(data).find("#menuBlogs .badge").text()],
-					["Citi", $(data).find("#menuCiti .badge").text()],
-					["Kalendārs", $(data).find("#calendarBox .badge").text()],
-					["Draugi online", $(data).find("#menuFriends .badge").text()]
+					["Vēstules", $(data).find("#menuMessages .badge").text(), vestules],
+					["Profila jaunumi", $(data).find("#myProfileNews .badge").text(), jaunumi],
+					["Statistika", $(data).find("#menuVisitors .badge").text(), statistika],
+					["Galerijas", $(data).find("#menuGallery .badge").text(), galerijas],
+					["Grupas", $(data).find("#menuGroups .badge").text(), grupas],
+					["Dienasgrāmatas", $(data).find("#menuBlogs .badge").text(), dienasgramatas],
+					["Citi", $(data).find("#menuCiti .badge").text(), citi],
+					["Kalendārs", $(data).find("#calendarBox .badge").text(), kalendars],
+					["Draugi online", $(data).find("#menuFriends .badge").text(), online]
 				];
 
 			$.each(dati, function (i) {
-				if (dati[i][1] !== "") {
+				if ((dati[i][1] !== "") && (dati[i][2] === true)) {
 					teksts = teksts + dati[i][0] + ": " + dati[i][1] + " | ";
 				}
 			});
 
-			if ((vards === lietotajs) || (lietotajs === "")) {
+			if (((vards === lietotajs) || (lietotajs === "")) && (teksts !== " | ")) {
 				if (vards !== "") {
 					zina(vards, teksts, true);
 				} else {
@@ -56,9 +56,9 @@ $(document).ready(function () {
 		if (alarm.name === "dr_atjaunot") {
 			chrome.storage.local.get (null, function (iest) {
 				if (iest.dr_iestatijumi === true) {
-					atjaunot(iest.dr_lietotajs);
+					atjaunot(iest.dr_lietotajs, iest.dr_vestules, iest.dr_jaunumi, iest.dr_statistika, iest.dr_galerijas, iest.dr_grupas, iest.dr_dienasgramatas, iest.dr_citi, iest.dr_kalendars, iest.dr_online);
 				} else {
-					atjaunot("");
+					atjaunot("", true, true, true, true, true, true, true, true, true);
 				}
 			});
 		}

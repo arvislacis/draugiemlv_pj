@@ -1,6 +1,6 @@
 // (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
 // arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
-// Versija 0.2.2 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// Versija 0.2.3 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false */
@@ -18,6 +18,7 @@ $(document).ready(function () {
 			$("#jaunumi").prop("checked", iest.dr_jaunumi);
 			$("#statistika").prop("checked", iest.dr_statistika);
 			$("#galerijas").prop("checked", iest.dr_galerijas);
+			$("#grupas").prop("checked", iest.dr_grupas);
 			$("#dienasgramatas").prop("checked", iest.dr_dienasgramatas);
 			$("#citi").prop("checked", iest.dr_citi);
 			$("#kalendars").prop("checked", iest.dr_kalendars);
@@ -46,6 +47,7 @@ $(document).ready(function () {
 			dr_jaunumi: $("#jaunumi").prop("checked"),
 			dr_statistika: $("#statistika").prop("checked"),
 			dr_galerijas: $("#galerijas").prop("checked"),
+			dr_grupas: $("#grupas").prop("checked"),
 			dr_dienasgramatas: $("#dienasgramatas").prop("checked"),
 			dr_citi: $("#citi").prop("checked"),
 			dr_kalendars: $("#kalendars").prop("checked"),
