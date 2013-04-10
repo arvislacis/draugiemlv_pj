@@ -1,6 +1,5 @@
 // (CC BY-SA) 2013 Arvis Lācis
-// arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
-// Versija 0.2.3 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// arvis.lacis@gmail.com | http://twitter.com/arvislacis (@arvislacis) | http://al.id.lv
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false, webkitNotifications:false */
@@ -9,7 +8,7 @@
 
 $(document).ready(function () {
 	function zina (nosaukums, teksts, taimeris) {
-		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
+		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts); // TODO profila bilde
 
 		pazinojums.show();
 
@@ -46,7 +45,7 @@ $(document).ready(function () {
 				if (vards !== "") {
 					zina(vards, teksts, true);
 				} else {
-					zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Jūsu Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar savu Draugiem.lv profilu.", false);
+					zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar Draugiem.lv profilu.", false);
 				}
 			}
 		});

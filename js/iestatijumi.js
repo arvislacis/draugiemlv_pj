@@ -1,6 +1,5 @@
-// (CC BY-SA) 2013 Arvis Lācis (@arvislacis)
-// arvis.lacis@gmail.com | http://twitter.com/arvislacis | http://al.id.lv
-// Versija 0.2.3 pārbaudīta ar JSHint (http://www.jshint.com/) - kļūdas netika atrastas
+// (CC BY-SA) 2013 Arvis Lācis
+// arvis.lacis@gmail.com | http://twitter.com/arvislacis (@arvislacis) | http://al.id.lv
 
 /* jshint bitwise:true, curly:true, eqeqeq:true, forin:true, globalstrict:true, newcap:true, noarg:true, noempty:true, onevar: true, undef:true, unused:true, browser:true, jquery:true, indent:4 */
 /* global chrome:false */
@@ -27,7 +26,7 @@ $(document).ready(function () {
 			$("#intervals").val(iest.dr_indekss);
 		}
 
-		$("#intervals_txt").html("ik pēc <b>" + laiks[$("#intervals").val()] + "</b> minūtēm");
+		$("#intervals_txt").html(laiks[$("#intervals").val()]);
 	});
 
 	$("h2, #autors").css({"text-align": "center"});
@@ -35,7 +34,7 @@ $(document).ready(function () {
 	$("#iestatijumi").hide().fadeTo(2000, 1);
 
 	$("#intervals").change(function () {
-		$("#intervals_txt").html("ik pēc <b>" + laiks[$("#intervals").val()] + "</b> minūtēm");
+		$("#intervals_txt").html(laiks[$("#intervals").val()]);
 	});
 
 	$("#saglabat").click(function () {
