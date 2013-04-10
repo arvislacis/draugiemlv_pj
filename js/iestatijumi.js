@@ -26,7 +26,7 @@ $(document).ready(function () {
 			$("#intervals").val(iest.dr_indekss);
 		}
 
-		$("#intervals_txt").html(laiks[$("#intervals").val()]);
+		$("#intervals_txt").css({"font-weight": "bold"}).html(laiks[$("#intervals").val()]);
 	});
 
 	$("h2, #autors").css({"text-align": "center"});

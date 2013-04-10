@@ -8,7 +8,7 @@
 
 $(document).ready(function () {
 	function zina (nosaukums, teksts, taimeris) {
-		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts); // TODO profila bilde
+		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
 
 		pazinojums.show();
 
@@ -19,47 +19,43 @@ $(document).ready(function () {
 		}
 	}
 
-	function atjaunot (lietotajs, vestules, jaunumi, statistika, galerijas, grupas, dienasgramatas, citi, kalendars, online) {
+	function atjaunot () {
 		$.get("http://www.draugiem.lv", function (data) {
-			var vards = $(data).find("#my-name a").text(),
-				teksts = " | ",
-				dati = [
-					["Vēstules", $(data).find("#menuMessages .badge").text(), vestules],
-					["Profila jaunumi", $(data).find("#myProfileNews .badge").text(), jaunumi],
-					["Statistika", $(data).find("#menuVisitors .badge").text(), statistika],
-					["Galerijas", $(data).find("#menuGallery .badge").text(), galerijas],
-					["Grupas", $(data).find("#menuGroups .badge").text(), grupas],
-					["Dienasgrāmatas", $(data).find("#menuBlogs .badge").text(), dienasgramatas],
-					["Citi", $(data).find("#menuCiti .badge").text(), citi],
-					["Kalendārs", $(data).find("#calendarBox .badge").text(), kalendars],
-					["Draugi online", $(data).find("#menuFriends .badge").text(), online]
-				];
+			chrome.storage.local.get (null, function (iest) {
+				var vards = $(data).find("#my-name a").text(),
+					teksts = " | ",
+					dati = [
+						["Vēstules", $(data).find("#menuMessages .badge").text(), iest.dr_vestules],
+						["Profila jaunumi", $(data).find("#myProfileNews .badge").text(), iest.dr_jaunumi],
+						["Statistika", $(data).find("#menuVisitors .badge").text(), iest.dr_statistika],
+						["Galerijas", $(data).find("#menuGallery .badge").text(), iest.dr_galerijas],
+						["Grupas", $(data).find("#menuGroups .badge").text(), iest.dr_grupas],
+						["Dienasgrāmatas", $(data).find("#menuBlogs .badge").text(), iest.dr_dienasgramatas],
+						["Citi", $(data).find("#menuCiti .badge").text(), iest.dr_citi],
+						["Kalendārs", $(data).find("#calendarBox .badge").text(), iest.dr_kalendars],
+						["Draugi online", $(data).find("#menuFriends .badge").text(), iest.dr_online]
+					];
 
-			$.each(dati, function (i) {
-				if ((dati[i][1] !== "") && (dati[i][2] === true)) {
-					teksts = teksts + dati[i][0] + ": " + dati[i][1] + " | ";
+				$.each(dati, function (i) {
+					if ((dati[i][1] !== "") && ((dati[i][2] === true) || (dati[i][2] === undefined))) {
+						teksts = teksts + dati[i][0] + ": " + dati[i][1] + " | ";
+					}
+				});
+
+				if (((vards === iest.dr_lietotajs) || (iest.dr_lietotajs === "")) && (teksts !== " | ")) {
+					if (vards !== "") {
+						zina(vards, teksts, true);
+					} else {
+						zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar Draugiem.lv profilu.", false);
+					}
 				}
 			});
-
-			if (((vards === lietotajs) || (lietotajs === "")) && (teksts !== " | ")) {
-				if (vards !== "") {
-					zina(vards, teksts, true);
-				} else {
-					zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar Draugiem.lv profilu.", false);
-				}
-			}
 		});
 	}
 
 	chrome.alarms.onAlarm.addListener(function (alarm) {
 		if (alarm.name === "dr_atjaunot") {
-			chrome.storage.local.get (null, function (iest) {
-				if (iest.dr_iestatijumi === true) {
-					atjaunot(iest.dr_lietotajs, iest.dr_vestules, iest.dr_jaunumi, iest.dr_statistika, iest.dr_galerijas, iest.dr_grupas, iest.dr_dienasgramatas, iest.dr_citi, iest.dr_kalendars, iest.dr_online);
-				} else {
-					atjaunot("", true, true, true, true, true, true, true, true, true);
-				}
-			});
+			atjaunot();
 		}
 	});
 
