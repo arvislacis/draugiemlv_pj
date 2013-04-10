@@ -7,8 +7,6 @@
 "use strict";
 
 $(document).ready(function () {
-	var laiks = [2, 5, 10, 15, 20, 30, 60];
-
 	chrome.storage.local.get (null, function (iest) {
 		if (iest.dr_iestatijumi === true) {
 			$("#lietotajs").val(iest.dr_lietotajs);
@@ -23,18 +21,16 @@ $(document).ready(function () {
 			$("#kalendars").prop("checked", iest.dr_kalendars);
 			$("#online").prop("checked", iest.dr_online);
 
-			$("#intervals").val(iest.dr_indekss);
+			$("#intervals").val(iest.dr_laiks);
 		}
 
-		$("#intervals_txt").css({"font-weight": "bold"}).html(laiks[$("#intervals").val()]);
+		$("#intervals_txt").css({"font-weight": "bold"}).html($("#intervals").val());
 	});
 
-	$("h2, #autors").css({"text-align": "center"});
-	$("#statuss").css({"color": "green"}).hide();
-	$("#iestatijumi").hide().fadeTo(2000, 1);
+	$("#autors").css({"text-align": "center"});
 
 	$("#intervals").change(function () {
-		$("#intervals_txt").html(laiks[$("#intervals").val()]);
+		$("#intervals_txt").html($("#intervals").val());
 	});
 
 	$("#saglabat").click(function () {
@@ -52,12 +48,10 @@ $(document).ready(function () {
 			dr_kalendars: $("#kalendars").prop("checked"),
 			dr_online: $("#online").prop("checked"),
 
-			dr_indekss: $("#intervals").val(),
-			dr_biezums: laiks[$("#intervals").val()]
+			dr_laiks: $("#intervals").val()
 		});
 
 		chrome.alarms.clear("dr_atjaunot");
-		chrome.alarms.create("dr_atjaunot", {periodInMinutes: laiks[$("#intervals").val()]});
-		$("#statuss").html("<b>Iestatījumi saglabāti!</b>").hide().fadeTo(2000, 1).fadeOut(2000, 0);
+		chrome.alarms.create("dr_atjaunot", {periodInMinutes: $("#intervals").val()});
 	});
 });

@@ -1,43 +1,47 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<title>Draugiem.lv profila jaunumi - Iestatījumi</title>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="../js/iestatijumi.js"></script>
 </head>
 <body>
-<div id="iestatijumi">
-	<h2>Draugiem.lv profila jaunumi - Iestatījumi</h2>
-	<hr>
-	Paziņojumus rādīt tikai šādam Draugiem.lv lietotājam: <input type="text" size="15" title="Ievadītajam tekstam jāsakrīt ar to, kas attēlots virs Draugiem.lv profila bildes." id="lietotajs">
-	<hr>
-	Paziņojumos iekļaut šādas sadaļas:
-	<br>
-	<label><input type="checkbox" id="vestules" checked>Vēstules</label>
-	<br>
-	<label><input type="checkbox" id="jaunumi" checked>Profila jaunumi</label>
-	<br>
-	<label><input type="checkbox" id="statistika" checked>Statistika</label>
-	<br>
-	<label><input type="checkbox" id="galerijas" checked>Galerijas</label>
-	<br>
-	<label><input type="checkbox" id="grupas" checked>Grupas</label>
-	<br>
-	<label><input type="checkbox" id="dienasgramatas" checked>Dienasgrāmatas</label>
-	<br>
-	<label><input type="checkbox" id="citi" checked>Citi</label>
-	<br>
-	<label><input type="checkbox" id="kalendars" checked>Kalendārs</label>
-	<br>
-	<label><input type="checkbox" id="online" checked>Draugi online</label>
-	<hr>
-	Paziņojumu rādīšanas biežums: <input type="range" min="0" max="6" step="1" value="1" id="intervals"> ik pēc <span id="intervals_txt"></span> minūtēm
-	<hr>
-	<input type="button" value="Saglabāt iestatījumus" id="saglabat">
-	<span id="statuss"></span>
-	<hr>
-	<div id="autors">(<a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">CC BY-SA</a>) 2013 <a href="http://www.draugiem.lv/arvislacis/" target="_blank">Arvis Lācis</a></div>
-	<hr>
+<div id="iestatijumi" class="modal">
+	<div class="modal-header">
+		<h3><i class="icon-wrench"></i> Iestatījumi</h3>
+	</div>
+	<div class="modal-body">
+		<form>
+			Draugiem.lv profils:
+			<input type="text" class="input-medium" id="lietotajs">
+			Paziņojumos iekļaut šādas sadaļas:
+			<table class="table table-bordered">
+			<tr>
+				<td><label class="checkbox"><input type="checkbox" id="vestules" checked>Vēstules</label></td>
+				<td><label class="checkbox"><input type="checkbox" id="jaunumi" checked>Profila jaunumi</label></td>
+				<td><label class="checkbox"><input type="checkbox" id="statistika" checked>Statistika</label></td>
+			</tr>
+			<tr>
+				<td><label class="checkbox"><input type="checkbox" id="galerijas" checked>Galerijas</label></td>
+				<td><label class="checkbox"><input type="checkbox" id="grupas" checked>Grupas</label></td>
+				<td><label class="checkbox"><input type="checkbox" id="dienasgramatas" checked>Dienasgrāmatas</label></td>
+			</tr>
+			<tr>
+				<td><label class="checkbox"><input type="checkbox" id="citi" checked>Citi</label></td>
+				<td><label class="checkbox"><input type="checkbox" id="kalendars" checked>Kalendārs</label></td>
+				<td><label class="checkbox"><input type="checkbox" id="online" checked>Draugi online</label></td>
+			</tr>
+			</table>
+			Paziņojumu rādīšanas biežums:
+			<input type="text" value="1" class="input-medium" id="intervals"> ik pēc <span id="intervals_txt"></span> minūtēm
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-primary" id="saglabat">Saglabāt iestatījumus</button>
+	</div>
 </div>
 </body>
 </html>

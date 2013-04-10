@@ -43,7 +43,7 @@ $(document).ready(function () {
 					}
 				});
 
-				if (((vards === iest.dr_lietotajs) || (iest.dr_lietotajs === "")) && (teksts !== " | ")) {
+				if (((vards === iest.dr_lietotajs) || (iest.dr_lietotajs === "") || (iest.dr_lietotajs === undefined)) && (teksts !== " | ")) {
 					if (vards !== "") {
 						zina(attels, vards, teksts, true);
 					} else {
@@ -62,9 +62,9 @@ $(document).ready(function () {
 
 	chrome.storage.local.get (null, function (iest) {
 		if (iest.dr_iestatijumi === true) {
-			chrome.alarms.create("dr_atjaunot", {periodInMinutes: iest.dr_biezums});
+			chrome.alarms.create("dr_atjaunot", {periodInMinutes: iest.dr_laiks});
 		} else {
-			chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
+			chrome.alarms.create("dr_atjaunot", {periodInMinutes: 0.1});
 		}
 	});
 });
