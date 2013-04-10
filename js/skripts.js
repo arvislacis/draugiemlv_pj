@@ -7,8 +7,8 @@
 "use strict";
 
 $(document).ready(function () {
-	function zina (nosaukums, teksts, taimeris) {
-		var pazinojums = webkitNotifications.createNotification("", nosaukums, teksts);
+	function zina (attels, nosaukums, teksts, taimeris) {
+		var pazinojums = webkitNotifications.createNotification(attels, nosaukums, teksts);
 
 		pazinojums.show();
 
@@ -23,6 +23,7 @@ $(document).ready(function () {
 		$.get("http://www.draugiem.lv", function (data) {
 			chrome.storage.local.get (null, function (iest) {
 				var vards = $(data).find("#my-name a").text(),
+					attels = $(data).find(".picture img").prop("src").replace("nm", "i"),
 					teksts = " | ",
 					dati = [
 						["Vēstules", $(data).find("#menuMessages .badge").text(), iest.dr_vestules],
@@ -44,9 +45,9 @@ $(document).ready(function () {
 
 				if (((vards === iest.dr_lietotajs) || (iest.dr_lietotajs === "")) && (teksts !== " | ")) {
 					if (vards !== "") {
-						zina(vards, teksts, true);
+						zina(attels, vards, teksts, true);
 					} else {
-						zina("Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar Draugiem.lv profilu.", false);
+						zina("", "Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar Draugiem.lv profilu.", false);
 					}
 				}
 			});
