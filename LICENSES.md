@@ -1,7 +1,3 @@
-# Draugiem.lv profila jaunumi #
-
-**Draugiem.lv profila jaunumi** ir Google Chrome paplašinājums, kas paziņojumu veidā attēlo jaunumus (vēstules, galerijas, statistika utml.) lietotāja Draugiem.lv profilā.
-
 ## Licenses ##
 
 - **[Draugiem.lv profila jaunumi - source code](https://github.com/arvislacis/draugiemlv_pj)** by Arvis Lācis is licensed under a [CC BY-SA 3.0 License](http://creativecommons.org/licenses/by-sa/3.0/). (Copyright 2013 Arvis Lācis)

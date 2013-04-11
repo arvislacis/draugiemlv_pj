@@ -3,7 +3,7 @@
 
 	"name": "Draugiem.lv profila jaunumi",
 	"description": "Paplašinājums paziņojumu veidā attēlo jaunumus lietotāja Draugiem.lv profilā.",
-	"homepage_url": "http://www.draugiem.lv/arvislacis/",
+	"homepage_url": "https://github.com/arvislacis/draugiemlv_pj",
 	"version": "0.2.5",
 
 	"icons": {
