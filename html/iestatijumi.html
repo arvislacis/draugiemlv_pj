@@ -15,32 +15,82 @@
 	</div>
 	<div class="modal-body">
 		<form>
-			Draugiem.lv profils:
-			<input type="text" class="input-medium" id="lietotajs">
-			Paziņojumos iekļaut šādas sadaļas:
-			<table class="table table-bordered">
-			<tr>
-				<td><label class="checkbox"><input type="checkbox" id="vestules" checked>Vēstules</label></td>
-				<td><label class="checkbox"><input type="checkbox" id="jaunumi" checked>Profila jaunumi</label></td>
-				<td><label class="checkbox"><input type="checkbox" id="statistika" checked>Statistika</label></td>
-			</tr>
-			<tr>
-				<td><label class="checkbox"><input type="checkbox" id="galerijas" checked>Galerijas</label></td>
-				<td><label class="checkbox"><input type="checkbox" id="grupas" checked>Grupas</label></td>
-				<td><label class="checkbox"><input type="checkbox" id="dienasgramatas" checked>Dienasgrāmatas</label></td>
-			</tr>
-			<tr>
-				<td><label class="checkbox"><input type="checkbox" id="citi" checked>Citi</label></td>
-				<td><label class="checkbox"><input type="checkbox" id="kalendars" checked>Kalendārs</label></td>
-				<td><label class="checkbox"><input type="checkbox" id="online" checked>Draugi online</label></td>
-			</tr>
-			</table>
-			Paziņojumu rādīšanas biežums:
-			<input type="text" value="1" class="input-medium" id="intervals"> ik pēc <span id="intervals_txt"></span> minūtēm
+			<ul class="tabbable">
+				<ul class="nav nav-tabs">
+					<li class="active"><a href="#cilne1" data-toggle="tab">Sadaļas</a></li>
+					<li><a href="#cilne2" data-toggle="tab">Biežums</a></li>
+					<li><a href="#cilne3" data-toggle="tab">Profils</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane active" id="cilne1">
+						<p>
+							<span class="help-inline">Paziņojumos iekļaut šādas sadaļas:</span>
+							<table class="table table-bordered">
+								<tr>
+									<td>
+										<label class="checkbox"><i class="icon-envelope"></i> <input type="checkbox" id="vestules" checked>Vēstules</label>
+									</td>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="jaunumi" checked><i class="icon-heart"></i> Profila jaunumi</label>
+									</td>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="statistika" checked><i class="icon-th"></i> Statistika</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="galerijas" checked><i class="icon-camera"></i> Galerijas</label>
+									</td>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="grupas" checked><i class="icon-th-list"></i> Grupas</label>
+									</td>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="dienasgramatas" checked><i class="icon-book"></i> Dienasgrāmatas</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="citi" checked><i class="icon-glass"></i> Citi</label>
+									</td>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="kalendars" checked><i class="icon-calendar"></i> Kalendārs</label>
+									</td>
+									<td>
+										<label class="checkbox"><input type="checkbox" id="online" checked><i class="icon-globe"></i> Draugi online</label>
+									</td>
+								</tr>
+							</table>
+						</p>
+					</div>
+					<div class="tab-pane" id="cilne2">
+						<p>
+							<span class="help-inline"><i class="icon-refresh"></i> Atjaunot datus/rādīt paziņojumus ik pēc:</span>
+							<select id="laiks" class="input-medium">
+								<option value="1">1 minūtes</option>
+								<option value="2">2 minūtēm</option>
+								<option value="5" selected>5 minūtēm</option>
+								<option value="10">10 minūtēm</option>
+								<option value="15">15 minūtēm</option>
+								<option value="20">20 minūtēm</option>
+								<option value="30">30 minūtēm</option>
+								<option value="60">1 stundas</option>
+							</select>
+							<label class="checkbox"><input type="checkbox" id="aizvert" checked><i class="icon-remove"></i> Aizvērt paziņojumus automātiski</label>
+						</p>
+					</div>
+					<div class="tab-pane" id="cilne3">
+						<p>
+							<span class="help-inline"><i class="icon-user"></i> Draugiem.lv profils:</span>
+							<input type="text" class="input-medium" id="lietotajs">
+							<label class="checkbox"><input type="checkbox" id="foto" checked><i class="icon-picture"></i> Paziņojumos rādīt lietotāja fotogrāfiju</label>
+						</p>
+					</div>
+				</div>
+			</ul>
 		</form>
 	</div>
 	<div class="modal-footer">
-		<button type="button" class="btn btn-primary" id="saglabat">Saglabāt iestatījumus</button>
+		<button type="button" class="btn btn-primary" id="saglabat"><i class="icon-ok"></i> Saglabāt iestatījumus</button>
 	</div>
 </div>
 </body>

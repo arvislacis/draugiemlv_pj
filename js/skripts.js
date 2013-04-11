@@ -12,7 +12,7 @@ $(document).ready(function () {
 
 		pazinojums.show();
 
-		if (taimeris === true) {
+		if ((taimeris === true) || (taimeris === undefined)) {
 			setTimeout(function () {
 				pazinojums.cancel();
 			}, 5000);
@@ -45,7 +45,11 @@ $(document).ready(function () {
 
 				if (((vards === iest.dr_lietotajs) || (iest.dr_lietotajs === "") || (iest.dr_lietotajs === undefined)) && (teksts !== " | ")) {
 					if (vards !== "") {
-						zina(attels, vards, teksts, true);
+						if (iest.dr_foto === false) {
+							zina("", vards, teksts, iest.dr_aizvert);
+						} else {
+							zina(attels, vards, teksts, iest.dr_aizvert);
+						}
 					} else {
 						zina("", "Kļūda iegūstot datus", "Atvainojiet, mēģinot iegūt datus no Draugiem.lv profila, radās kļūda. Pārliecinieties, ka Jums ir patstāvīgs savienojums ar Draugiem.lv profilu.", false);
 					}
@@ -64,7 +68,7 @@ $(document).ready(function () {
 		if (iest.dr_iestatijumi === true) {
 			chrome.alarms.create("dr_atjaunot", {periodInMinutes: iest.dr_laiks});
 		} else {
-			chrome.alarms.create("dr_atjaunot", {periodInMinutes: 0.1});
+			chrome.alarms.create("dr_atjaunot", {periodInMinutes: 5});
 		}
 	});
 });

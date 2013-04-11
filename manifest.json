@@ -4,7 +4,13 @@
 	"name": "Draugiem.lv profila jaunumi",
 	"description": "Paplašinājums paziņojumu veidā attēlo jaunumus lietotāja Draugiem.lv profilā.",
 	"homepage_url": "http://www.draugiem.lv/arvislacis/",
-	"version": "0.2.4",
+	"version": "0.2.5",
+
+	"icons": {
+		"16": "img/ikona16.png",
+		"48": "img/ikona48.png",
+		"128": "img/ikona128.png"
+	},
 
 	"minimum_chrome_version": "23",
 

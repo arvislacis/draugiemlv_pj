@@ -9,8 +9,6 @@
 $(document).ready(function () {
 	chrome.storage.local.get (null, function (iest) {
 		if (iest.dr_iestatijumi === true) {
-			$("#lietotajs").val(iest.dr_lietotajs);
-
 			$("#vestules").prop("checked", iest.dr_vestules);
 			$("#jaunumi").prop("checked", iest.dr_jaunumi);
 			$("#statistika").prop("checked", iest.dr_statistika);
@@ -21,22 +19,17 @@ $(document).ready(function () {
 			$("#kalendars").prop("checked", iest.dr_kalendars);
 			$("#online").prop("checked", iest.dr_online);
 
-			$("#intervals").val(iest.dr_laiks);
+			$("#laiks").val(iest.dr_laiks);
+			$("#aizvert").prop(iest.dr_aizvert);
+
+			$("#lietotajs").val(iest.dr_lietotajs);
+			$("#foto").prop("checked", iest.dr_foto);
 		}
-
-		$("#intervals_txt").css({"font-weight": "bold"}).html($("#intervals").val());
-	});
-
-	$("#autors").css({"text-align": "center"});
-
-	$("#intervals").change(function () {
-		$("#intervals_txt").html($("#intervals").val());
 	});
 
 	$("#saglabat").click(function () {
 		chrome.storage.local.set ({
 			dr_iestatijumi: true,
-			dr_lietotajs: $("#lietotajs").val(),
 
 			dr_vestules: $("#vestules").prop("checked"),
 			dr_jaunumi: $("#jaunumi").prop("checked"),
@@ -48,10 +41,26 @@ $(document).ready(function () {
 			dr_kalendars: $("#kalendars").prop("checked"),
 			dr_online: $("#online").prop("checked"),
 
-			dr_laiks: $("#intervals").val()
+			dr_laiks: parseInt($("#laiks").val(), 10),
+			dr_aizvert: $("#aizvert").prop("checked"),
+
+			dr_lietotajs: $("#lietotajs").val(),
+			dr_foto: $("#foto").prop("checked")
 		});
 
 		chrome.alarms.clear("dr_atjaunot");
-		chrome.alarms.create("dr_atjaunot", {periodInMinutes: $("#intervals").val()});
+		chrome.alarms.create("dr_atjaunot", {periodInMinutes: parseInt($("#laiks").val(), 10)});
+	});
+
+	$("#saglabat").popover({
+		content: "Iestatījumi saglabāti!",
+		placement: "top",
+		animation: true
+	});
+
+	$("#lietotajs").popover({
+		content: "Paziņojumi tiks rādīti tikai šim Draugiem.lv lietotājam.",
+		placement: "right",
+		animation: true
 	});
 });
