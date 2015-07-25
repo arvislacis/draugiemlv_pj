@@ -1,20 +1,26 @@
 /*
 
-Mazie draugi - Paplašinājums, kas informē par jaunumiem Draugiem.lv profilā.
-Copyright (C) 2013 Arvis Lācis
+The MIT License
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+Copyright (c) 2013-2015 Arvis Lācis
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
 */
 
@@ -23,9 +29,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 "use strict";
 
+var DRAUGIEM_URL = "https://www.draugiem.lv";
+
 $(document).ready(function () {
 	function zina () {
-		$.get("http://www.draugiem.lv/messages/", function (data) {
+		$.get(DRAUGIEM_URL + "/messages/", function (data) {
 			var info = $(data).find(".unread");
 
 			$(info).each(function () {
@@ -46,16 +54,16 @@ $(document).ready(function () {
 		chrome.browserAction.setBadgeBackgroundColor({color: "#009900"});
 		chrome.browserAction.setBadgeText({text: "..."});
 
-		$.get("http://www.draugiem.lv", function (data) {
+		$.get(DRAUGIEM_URL, function (data) {
 				if ($(data).find("#my-name a").text() === "") {
 					chrome.browserAction.setBadgeBackgroundColor({color: "#000000"});
 					chrome.browserAction.setBadgeText({text: "XXX"});
 
-					$("#info").html("<div class='btn-group btn-group-vertical'><a class='btn btn-success' href='http://www.draugiem.lv' target='_window'>Pieslēgties Draugiem.lv<strong></div>");
+					$("#info").html("<div class='btn-group btn-group-vertical'><a class='btn btn-success' href='" + DRAUGIEM_URL + "' target='_window'>Pieslēgties Draugiem.lv<strong></div>");
 				}
 
 				var attels = $(data).find(".picture img").prop("src").replace("nm", "i"),
-				info = "<div class='btn-group btn-group-vertical'><a class='btn btn-mini' href='http://www.draugiem.lv' target='_window'><strong>" + $(data).find("#my-name a").text() +"</strong></a><a class='btn' href='http://www.draugiem.lv/account/' target='_window'><img src='" + attels + "'></a>",
+				info = "<div class='btn-group btn-group-vertical'><a class='btn btn-mini' href='" + DRAUGIEM_URL + "' target='_window'><strong>" + $(data).find("#my-name a").text() +"</strong></a><a class='btn' href='" + DRAUGIEM_URL + "/account/' target='_window'><img src='" + attels + "'></a>",
 
 				d = [
 /* 00 */				["Profila jaunumi", "", $(data).find("#myProfileNews .badge").text()],
@@ -77,7 +85,7 @@ $(document).ready(function () {
 
 				$.each(d, function (i) {
 					if (d[i][2] !== "") {
-						info = info + "<a class='btn btn-mini' href='http://www.draugiem.lv/" + d[i][1] + "' target='_window'>" + d[i][0] + ": <strong>" + d[i][2] + "</strong></a>";
+						info = info + "<a class='btn btn-mini' href='" + DRAUGIEM_URL + "/" + d[i][1] + "' target='_window'>" + d[i][0] + ": <strong>" + d[i][2] + "</strong></a>";
 					}
 				});
 
@@ -109,10 +117,10 @@ $(document).ready(function () {
 	atjaunot();
 
 	chrome.alarms.onAlarm.addListener(function (alarm) {
-		if (alarm.name === "mazie_draugi") {
+		if (alarm.name === "mazie-draugi") {
 			atjaunot();
 		}
 	});
 
-	chrome.alarms.create("mazie_draugi", {periodInMinutes: 2});
+	chrome.alarms.create("mazie-draugi", {periodInMinutes: 2});
 });

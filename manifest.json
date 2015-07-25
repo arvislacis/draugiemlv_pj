@@ -3,8 +3,8 @@
 
 	"name": "Mazie draugi",
 	"description": "Paplašinājums, kas informē par jaunumiem Draugiem.lv profilā.",
-	"homepage_url": "https://github.com/arvislacis/mazie_draugi",
-	"version": "0.4.0",
+	"homepage_url": "https://github.com/arvislacis/mazie-draugi",
+	"version": "0.4.5",
 
 	"icons": {
 		"16": "img/ikona16.png",
@@ -15,10 +15,10 @@
 		"256": "img/ikona256.png"
 	},
 
-	"minimum_chrome_version": "23",
+	"minimum_chrome_version": "30",
 
 	"permissions": [
-		"http://www.draugiem.lv/*",
+		"https://www.draugiem.lv/*",
 		"alarms",
 		"notifications"
 	],
@@ -30,7 +30,7 @@
 	},
 
 	"background": {
-		"scripts": ["js/jquery.min.js", "js/skripts.js"],
+		"scripts": ["js/jquery-2.1.4.min.js", "js/skripts.js"],
 		"persistent": false
 	}
 }
